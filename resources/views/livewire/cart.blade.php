@@ -79,7 +79,7 @@
                     Please <a href="{{ route("register") }}" class="text-blue-600">reqister</a> or <a href="{{ route("login") }}" class="text-blue-600">login</a> <br> to Checkout your order
                 </p>
             @else
-                <x-button class="mx-auto rounded-xl">CHECKOUT</x-button>
+                <x-button wire:click="checkout" class="mx-auto rounded-xl">CHECKOUT</x-button>
             @endguest
         </div>
     </div>

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 use Laravel\Fortify\Fortify;
 use Livewire\Component;
 use Money\Currencies\ISOCurrencies;
@@ -31,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Cashier::calculateTaxes();
+
         Component::macro('emit', function ($event) {
             $this->dispatch($event);
         });

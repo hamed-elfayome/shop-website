@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Actions\Shopapp\CreateStripeCheckoutSession;
 use App\Factories\CartFactory;
 use Livewire\Component;
 
@@ -10,6 +11,11 @@ class Cart extends Component
     public $listeners = [
         'CartUpdated' => '$refresh',
     ];
+
+    public function checkout(CreateStripeCheckoutSession $checkoutSession)
+    {
+        return $checkoutSession->createFromCart($this->cart);
+    }
 
     public function getCartProperty()
     {
