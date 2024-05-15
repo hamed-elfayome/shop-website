@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Cart;
+use App\Livewire\CreateNewAddress;
 use App\Livewire\Product;
 use App\Livewire\StoreFront;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', StoreFront::class)->name('home');
 Route::get('/product/{productId}', Product::class)->name('product');
 Route::get('/cart', Cart::class)->name('cart');
+Route::get('/create-address', CreateNewAddress::class)->name('createAddress');
 
 
 //Route::middleware([

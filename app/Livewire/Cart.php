@@ -12,6 +12,8 @@ class Cart extends Component
         'CartUpdated' => '$refresh',
     ];
 
+    public $address;
+
     public function checkout(CreateStripeCheckoutSession $checkoutSession)
     {
         return $checkoutSession->createFromCart($this->cart);
@@ -25,6 +27,11 @@ class Cart extends Component
     public function getItemsProperty()
     {
         return $this->cart->items;
+    }
+
+    public function getAddressesProperty()
+    {
+        return $this->cart->user->userAddress;
     }
 
     public function delete($itemId)

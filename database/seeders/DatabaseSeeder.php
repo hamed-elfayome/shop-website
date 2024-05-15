@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
             ->has(Image::Factory(3)->sequence(fn ($sequence) => ['featured' => $sequence->index % 3 === 0 ]))
             ->create();
 
-        User::factory()->create([
+        User::factory()
+            ->hasUserAddress(3)
+            ->create([
             'email' => 'test@test.com',
             'password' => bcrypt('test')
         ]);

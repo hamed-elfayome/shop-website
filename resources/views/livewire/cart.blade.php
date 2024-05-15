@@ -1,6 +1,6 @@
 <div class="mt-16">
     <div class="grid grid-cols-4 gap-x-4">
-        <table class="w-full bg-white shadow-xl rounded-lg col-span-3">
+        <table class="w-full bg-white shadow-xl rounded-lg h-fit col-span-3">
             <thead class="bg-gray-200">
             <tr>
                 <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Product</th>
@@ -32,8 +32,10 @@
                     <td class="px-6 py-4 flex items-center w-28 justify-between">
                         @if($item->quantity > 1)
                             <button wire:click="decrement({{ $item->id }})">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                 </svg>
                             </button>
                         @else
@@ -42,8 +44,10 @@
 
                         <div class="text-sm font-semibold text-gray-900">{{ $item->quantity }}</div>
                         <button wire:click="increment({{ $item->id }})">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                 stroke="currentColor" class="w-5 h-5 text-gray-600">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
                         </button>
                     </td>
@@ -63,23 +67,38 @@
             @endforeach
             </tbody>
             <tfoot>
-                <tr>
-                    <td colspan="5" class="px-6 py-4 text-right">
-                        <div class="text-md font-bold text-gray-800">Total</div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="text-sm font-bold text-gray-800">{{ $this->cart->total }}</div>
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="5" class="px-6 py-4 text-right">
+                    <div class="text-md font-bold text-gray-800">Total</div>
+                </td>
+                <td class="px-6 py-4">
+                    <div class="text-sm font-bold text-gray-800">{{ $this->cart->total }}</div>
+                </td>
+            </tr>
             </tfoot>
         </table>
         <div class="w-full bg-white shadow-md rounded-xl p-5 col-span-1 h-fit flex justify-center">
             @guest
                 <p class="text-center">
-                    Please <a href="{{ route("register") }}" class="text-blue-600">reqister</a> or <a href="{{ route("login") }}" class="text-blue-600">login</a> <br> to Checkout your order
+                    Please <a href="{{ route("register") }}" class="text-blue-600">reqister</a> or <a
+                        href="{{ route("login") }}" class="text-blue-600">login</a> <br> to Checkout your order
                 </p>
             @else
-                <x-button wire:click="checkout" class="mx-auto rounded-xl">CHECKOUT</x-button>
+                @if($this->Addresses->isEmpty())
+                    <a href="{{ route("createAddress") }}" class="text-blue-600">Please create shipping address</a>
+                @else
+                    <div class="flex flex-col gap-y-4">
+                        <div>Select shipping address </br>
+                            <a href="{{ route("createAddress") }}" class="text-blue-600">or create new</a></div>
+                        <select wire:model="adress" class="rounded-3xl border-2 border-gray-200 shadow-lg px-5">
+                            @foreach($this->Addresses as $address)
+                                <option value="{{ $address->id }}">{{ substr($address->country, 0, 5) }}. {{ substr($address->city, 0, 5) }}. {{ substr($address->street, 0, 5) }}.</option>
+                            @endforeach
+                        </select>
+                        <x-button wire:click="checkout" class="mx-auto rounded-xl">CHECKOUT</x-button>
+                    </div>
+                @endif
+
             @endguest
         </div>
     </div>
