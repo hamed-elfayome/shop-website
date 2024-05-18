@@ -90,7 +90,7 @@
                     <div class="flex flex-col gap-y-4">
                         <div>Select shipping address </br>
                             <a href="{{ route("createAddress") }}" class="text-blue-600">or create new</a></div>
-                        <select wire:model="adress" class="rounded-3xl border-2 border-gray-200 shadow-lg px-5">
+                        <select wire:model="address" class="rounded-3xl border-2 border-gray-200 shadow-lg px-5">
                             @foreach($this->Addresses as $address)
                                 <option value="{{ $address->id }}">{{ substr($address->country, 0, 5) }}. {{ substr($address->city, 0, 5) }}. {{ substr($address->street, 0, 5) }}.</option>
                             @endforeach

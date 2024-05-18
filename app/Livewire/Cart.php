@@ -16,11 +16,15 @@ class Cart extends Component
 
     public function mount()
     {
-        $this->address = auth()->user()->userAddress()->value('id');
+        $user = auth()->user();
+        if($user)
+        {
+            $this->address = auth()->user()->userAddress()->value('id');
+        }
     }
     public function checkout(CreateStripeCheckoutSession $checkoutSession)
     {
-        return $checkoutSession->createFromCart($this->cart);
+        return $checkoutSession->createFromCart($this->cart, $this->address);
     }
 
     public function getCartProperty()

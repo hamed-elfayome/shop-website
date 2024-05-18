@@ -8,10 +8,17 @@ use App\Models\Cart;
 
 class CreateStripeCheckoutSession
 {
-    public function createFromCart(Cart $cart)
+    public function createFromCart(Cart $cart, $address)
     {
         return $cart->user->checkout(
-            $this->setCartItems($cart->items)
+            $this->setCartItems($cart->items),
+            [
+                'metadata' => [
+                    'user_id' => $cart->user->id,
+                    'address_id' => $address,
+                    'cart_id' => $cart->id,
+                ]
+            ]
         );
     }
 
