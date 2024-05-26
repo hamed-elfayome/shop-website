@@ -47,7 +47,7 @@ class CheckoutSessionCompleted
                     'price' => $line->price->unit_amount,
                     'quantity' => $line->quantity,
                     'amount_discount' => 0,
-                    'amount_total' => $line->price->unit_amount,
+                    'amount_total' => $line->price->unit_amount * $line->quantity,
                     'name' => $product->name,
                     'description' => $product->description,
                 ]);
