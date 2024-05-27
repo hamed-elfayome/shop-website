@@ -73,6 +73,14 @@
                     </div>
                 @endif
 
+                <!-- Navigation Link -->
+                <x-nav-link href="{{ route('orders') }}" :active="request()->routeIs('orders')">
+                    {{ __('My Orders') }}
+                </x-nav-link>
+
+
+
+
                 <!-- Settings Dropdown -->
                 <div class="ms-3 relative">
                     <x-dropdown align="right" width="48">
@@ -93,6 +101,7 @@
                                 </span>
                             @endif
                         </x-slot>
+
 
                         <x-slot name="content">
                             <!-- Account Management -->
@@ -129,6 +138,17 @@
                     </x-dropdown>
                 </div>
             </div>
+            @else
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('login') }}">
+                        {{ __('log in') }}
+                    </x-nav-link>
+
+                    <x-nav-link href="{{ route('register') }}">
+                        {{ __('register') }}
+                    </x-nav-link>
+
+                </div>
             @endauth
 
             <!-- Hamburger -->
